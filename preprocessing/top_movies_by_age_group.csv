@@ -1,0 +1,71 @@
+AgeGroup,MovieID,Title,GenresText,AvgRating,RatingCount,Year
+Under 18,2010,Metropolis,['Sci-Fi'],4.888888888888889,9,1926
+Under 18,1213,GoodFellas,"['Crime', 'Drama']",4.84,25,1990
+Under 18,1212,"Third Man, The","['Mystery', 'Thriller']",4.818181818181818,11,1949
+Under 18,945,Top Hat,"['Comedy', 'Musical', 'Romance']",4.8,5,1935
+Under 18,3435,Double Indemnity,"['Crime', 'Film-Noir']",4.777777777777778,9,1944
+Under 18,509,"Piano, The","['Drama', 'Romance']",4.75,8,1993
+Under 18,1228,Raging Bull,['Drama'],4.714285714285714,14,1980
+Under 18,2730,Barry Lyndon,['Drama'],4.714285714285714,7,1975
+Under 18,3741,Badlands,"['Crime', 'Drama']",4.714285714285714,7,1973
+Under 18,916,Roman Holiday,"['Comedy', 'Romance']",4.6875,16,1953
+56+,3222,Carmen,['Drama'],4.8,5,1984
+56+,1148,"Wrong Trousers, The","['Animation', 'Comedy']",4.722222222222222,18,1993
+56+,2920,Children of Paradise (Les enfants du paradis),"['Drama', 'Romance']",4.714285714285714,7,1945
+56+,2351,Nights of Cabiria (Le Notti di Cabiria),['Drama'],4.7,10,1957
+56+,1237,"Seventh Seal, The (Sjunde inseglet, Det)",['Drama'],4.666666666666667,21,1957
+56+,1941,Hamlet,['Drama'],4.666666666666667,12,1948
+56+,1192,Paris Is Burning,['Documentary'],4.666666666666667,6,1990
+56+,3925,Stranger Than Paradise,['Comedy'],4.666666666666667,6,1984
+56+,3469,Inherit the Wind,['Drama'],4.625,24,1960
+56+,3030,Yojimbo,"['Comedy', 'Drama', 'Western']",4.625,8,1961
+25-34,2493,"Harmonists, The",['Drama'],4.857142857142857,7,1997
+25-34,2905,Sanjuro,"['Action', 'Adventure']",4.615384615384615,26,1962
+25-34,318,"Shawshank Redemption, The",['Drama'],4.587699316628702,878,1994
+25-34,1198,Raiders of the Lost Ark,"['Action', 'Adventure']",4.578520770010131,987,1981
+25-34,858,"Godfather, The","['Action', 'Crime', 'Drama']",4.5740514075887395,817,1972
+25-34,260,Star Wars: Episode IV - A New Hope,"['Action', 'Adventure', 'Fantasy', 'Sci-Fi']",4.572695035460993,1128,1977
+25-34,3338,For All Mankind,['Documentary'],4.571428571428571,7,1989
+25-34,1178,Paths of Glory,"['Drama', 'War']",4.5606060606060606,66,1957
+25-34,50,"Usual Suspects, The","['Crime', 'Thriller']",4.552429667519181,782,1995
+25-34,2019,Seven Samurai (The Magnificent Seven) (Shichinin no samurai),"['Action', 'Drama']",4.5495049504950495,202,1954
+45-49,3739,Trouble in Paradise,"['Comedy', 'Romance']",4.75,12,1932
+45-49,3038,"Face in the Crowd, A",['Drama'],4.75,8,1957
+45-49,1148,"Wrong Trousers, The","['Animation', 'Comedy']",4.647058823529412,51,1993
+45-49,3089,"Bicycle Thief, The (Ladri di biciclette)",['Drama'],4.636363636363637,22,1948
+45-49,745,"Close Shave, A","['Animation', 'Comedy', 'Thriller']",4.607142857142857,28,1995
+45-49,527,Schindler's List,"['Drama', 'War']",4.591549295774648,213,1993
+45-49,3077,42 Up,['Documentary'],4.5625,16,1998
+45-49,1178,Paths of Glory,"['Drama', 'War']",4.56,25,1957
+45-49,2019,Seven Samurai (The Magnificent Seven) (Shichinin no samurai),"['Action', 'Drama']",4.541666666666667,72,1954
+45-49,3134,"Grand Illusion (Grande illusion, La)","['Drama', 'War']",4.526315789473684,19,1937
+50-55,326,To Live (Huozhe),['Drama'],4.857142857142857,7,1994
+50-55,1797,Everest,['Documentary'],4.833333333333333,6,1998
+50-55,3416,"Trial, The (Le Procès)",['Drama'],4.833333333333333,6,1963
+50-55,2905,Sanjuro,"['Action', 'Adventure']",4.777777777777778,9,1962
+50-55,3030,Yojimbo,"['Comedy', 'Drama', 'Western']",4.733333333333333,30,1961
+50-55,1297,Real Genius,['Comedy'],4.714285714285714,7,1985
+50-55,670,"World of Apu, The (Apur Sansar)",['Drama'],4.7,10,1959
+50-55,1148,"Wrong Trousers, The","['Animation', 'Comedy']",4.66,50,1993
+50-55,2019,Seven Samurai (The Magnificent Seven) (Shichinin no samurai),"['Action', 'Drama']",4.6571428571428575,70,1954
+50-55,720,Wallace & Gromit: The Best of Aardman Animation,['Animation'],4.611111111111111,18,1996
+35-44,922,Sunset Blvd. (a.k.a. Sunset Boulevard),['Film-Noir'],4.6115702479338845,121,1950
+35-44,3338,For All Mankind,['Documentary'],4.6,10,1989
+35-44,1207,To Kill a Mockingbird,['Drama'],4.585858585858586,198,1962
+35-44,3307,City Lights,"['Comedy', 'Drama', 'Romance']",4.581818181818182,55,1931
+35-44,858,"Godfather, The","['Action', 'Crime', 'Drama']",4.541935483870968,465,1972
+35-44,2019,Seven Samurai (The Magnificent Seven) (Shichinin no samurai),"['Action', 'Drama']",4.532894736842105,152,1954
+35-44,3789,"Pawnbroker, The",['Drama'],4.529411764705882,17,1965
+35-44,527,Schindler's List,"['Drama', 'War']",4.510344827586207,435,1993
+35-44,670,"World of Apu, The (Apur Sansar)",['Drama'],4.5,14,1959
+35-44,2284,Bandit Queen,['Drama'],4.5,8,1994
+18-24,2905,Sanjuro,"['Action', 'Adventure']",5.0,9,1962
+18-24,2937,"Palm Beach Story, The",['Comedy'],4.833333333333333,6,1942
+18-24,668,Pather Panchali,['Drama'],4.8,5,1955
+18-24,1879,"Hanging Garden, The",['Drama'],4.8,5,1997
+18-24,3021,"Funhouse, The",['Horror'],4.8,5,1981
+18-24,50,"Usual Suspects, The","['Crime', 'Thriller']",4.6807980049875315,401,1995
+18-24,318,"Shawshank Redemption, The",['Drama'],4.674568965517241,464,1994
+18-24,2019,Seven Samurai (The Magnificent Seven) (Shichinin no samurai),"['Action', 'Drama']",4.604938271604938,81,1954
+18-24,583,Dear Diary (Caro Diario),"['Comedy', 'Drama']",4.6,5,1994
+18-24,1236,Trust,"['Comedy', 'Drama']",4.583333333333333,12,1990
