@@ -1,5 +1,2 @@
 main-recommender-module/models/cf_model_2.pkl
 main-recommender-module/models/cf_model_3.pkl
-main-recommender-module/playground.py
-preprocessing/ratings_10m.csv
-preprocessing/ratings_32m.csv
