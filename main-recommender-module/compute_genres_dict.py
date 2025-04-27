@@ -5,7 +5,7 @@ import numpy as np
 # Assume movies_df has movieId and genres columns
 # Example: movies_df = pd.read_csv('path/to/movies.csv')
 # If genres are in beegar_data, adjust accordingly
-movies_df = pd.read_csv("K:\MachineProject\Data\ml-32m\movies.csv")
+movies_df = pd.read_csv(r"main-recommender-module/ml_data/movies_32m.csv")
 
 # Step 1: Extract unique genres
 all_genres = set()
