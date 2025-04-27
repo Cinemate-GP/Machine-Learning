@@ -1,5 +1,7 @@
+main-recommender-module/playground.py
+main-recommender-module/playground.ipynb
 main-recommender-module/models/cf_model_2.pkl
 main-recommender-module/models/cf_model_3.pkl
-main-recommender-module/playground.py
-preprocessing/ratings_10m.csv
-preprocessing/ratings_32m.csv
+main-recommender-module/ml_data/ratings_10m.csv
+main-recommender-module/ml_data/ratings_32m.csv
+main-recommender-module/ml_data/movies_32m.csv
