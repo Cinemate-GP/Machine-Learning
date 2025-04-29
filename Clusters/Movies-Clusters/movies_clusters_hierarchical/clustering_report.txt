@@ -1,0 +1,60 @@
+========== Movie Clustering Analysis Report (Hierarchical Subsampled) ==========
+--- Data Summary ---
+Total number of movies: 45335
+Clustering performed on: 64-dimensional latent space from hybrid features
+Subsampled 10000 movies for hierarchical clustering
+--- Clustering Summary ---
+Number of clusters: 130
+Movies assigned to clusters: 45335 (100.00%)
+Average cluster size: 348.7
+Minimum cluster size: 40
+Maximum cluster size: 1472
+Median cluster size: 248.5
+--- Top 5 Largest Clusters ---
+Cluster 14: 1472 movies
+Cluster 89: 1340 movies
+Cluster 87: 1243 movies
+Cluster 4: 1167 movies
+Cluster 69: 1055 movies
+
+--- Top 5 Smallest Clusters ---
+Cluster 118: 40 movies
+Cluster 64: 41 movies
+Cluster 115: 56 movies
+Cluster 114: 71 movies
+Cluster 49: 90 movies
+
+--- Sample Movies from 3 Random Clusters ---
+
+Cluster 111 (size: 510):
+ - Time
+ - The Dying Gaul
+ - A Patch of Blue
+ - Paper Year
+ - Happy Together
+ - Su-ki-da
+ - Scarlet Innocence
+
+Cluster 51 (size: 955):
+ - Honor Society
+ - The Year of Getting to Know Us
+ - About Adam
+ - Let's Face It
+ - The Oldest Profession
+ - Fathers' Day
+ - SubUrbia
+
+Cluster 3 (size: 237):
+ - The Return of the Musketeers
+ - A Dog's Will
+ - The Three Musketeers
+ - Anbe Sivam
+ - See You in Montevideo
+ - Adventures in Babysitting
+ - Descendants
+
+--- Clustering Quality Metrics ---
+Silhouette Score (subsample)  : 0.1952
+Davies–Bouldin Index          : 1.5826
+Calinski–Harabasz Score       : 235.18
+==================================================
