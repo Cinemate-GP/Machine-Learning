@@ -1,0 +1,23 @@
+name: MachineLab10
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyter
+  - nltk
+  - tensorflow=2.10
+  - keras-tuner
+  - pip:
+      - keras>=3.0
+      - h5py
+      - protobuf<4.0  # Required for TensorFlow 2.10 compatibility
+      - tensorboard==2.10
+      - regex
+      - ipykernel
