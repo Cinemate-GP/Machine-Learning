@@ -1,0 +1,59 @@
+========== Movie Clustering Analysis Report (K-Means) ==========
+--- Data Summary ---
+Total number of movies: 45335
+Clustering performed on: 64-dimensional latent space from hybrid features
+--- Clustering Summary ---
+Number of clusters: 130
+Movies assigned to clusters: 45335 (100.00%)
+Average cluster size: 348.7
+Minimum cluster size: 47
+Maximum cluster size: 1258
+Median cluster size: 288.5
+--- Top 5 Largest Clusters ---
+Cluster 99: 1258 movies
+Cluster 108: 1018 movies
+Cluster 82: 979 movies
+Cluster 118: 972 movies
+Cluster 7: 965 movies
+
+--- Top 5 Smallest Clusters ---
+Cluster 129: 47 movies
+Cluster 127: 78 movies
+Cluster 54: 94 movies
+Cluster 65: 96 movies
+Cluster 81: 98 movies
+
+--- Sample Movies from 3 Random Clusters ---
+
+Cluster 87 (size: 453):
+ - Watermelon Man
+ - Protocol
+ - Biloxi Blues
+ - We Are All Together
+ - Who's That Girl
+ - Where's the Money
+ - Don Peyote
+
+Cluster 46 (size: 786):
+ - The Other Bank
+ - Day of Wrath
+ - Three Days to Forever
+ - Thérèse
+ - Avalon
+ - Sarafina!
+ - The Marquise of O
+
+Cluster 20 (size: 263):
+ - Striker
+ - Airplane vs Volcano
+ - Hidden Blade
+ - A Night to Remember
+ - Rolf
+ - Dragon Soldiers
+ - Double Down
+
+--- Clustering Quality Metrics ---
+Silhouette Score (subsample)  : 0.2038
+Davies–Bouldin Index          : 1.6208
+Calinski–Harabasz Score       : 278.35
+==================================================

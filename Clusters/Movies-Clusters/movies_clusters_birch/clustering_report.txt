@@ -1,0 +1,59 @@
+========== Movie Clustering Analysis Report (Birch) ==========
+--- Data Summary ---
+Total number of movies: 45335
+Clustering performed on: 64-dimensional latent space from hybrid features
+--- Clustering Summary ---
+Number of clusters: 130
+Movies assigned to clusters: 45335 (100.00%)
+Average cluster size: 348.7
+Minimum cluster size: 25
+Maximum cluster size: 5021
+Median cluster size: 123.0
+--- Top 5 Largest Clusters ---
+Cluster 72: 5021 movies
+Cluster 84: 4028 movies
+Cluster 124: 3284 movies
+Cluster 90: 2699 movies
+Cluster 27: 2035 movies
+
+--- Top 5 Smallest Clusters ---
+Cluster 128: 25 movies
+Cluster 126: 25 movies
+Cluster 105: 26 movies
+Cluster 63: 29 movies
+Cluster 98: 30 movies
+
+--- Sample Movies from 3 Random Clusters ---
+
+Cluster 4 (size: 312):
+ - In the Heart of the Sea
+ - Against All Flags
+ - Tarzan the Ape Man
+ - The Hidden Fortress
+ - The King Maker
+ - The Comancheros
+ - Jack Hunter and the Quest for Akhenaten's Tomb
+
+Cluster 59 (size: 1935):
+ - The Curse of Robert the Doll
+ - House of Frankenstein
+ - The Mummy's Hand
+ - Ring of Terror
+ - Abby
+ - Dead of the Nite
+ - The Hatred
+
+Cluster 66 (size: 116):
+ - Hercules
+ - Legend
+ - The Vengeance of She
+ - Strings
+ - Pinocchio
+ - The Mysterious Castle in the Carpathians
+ - The Little Mermaid
+
+--- Clustering Quality Metrics ---
+Silhouette Score (subsample)  : 0.2223
+Davies–Bouldin Index          : 1.6552
+Calinski–Harabasz Score       : 169.85
+==================================================
