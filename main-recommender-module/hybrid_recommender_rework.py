@@ -77,7 +77,7 @@ def get_top_n_hybrid_recommendations(user_id, cf_model, dataset, genres_dict, k=
 # Inputs: ratings (user_id, movie_id, rating), clusters (user_id -> cluster_id),
 #         cluster_genres (cluster_id -> [top genres]), movies (movie_id -> [genres])
 
-def get_top_movies_for_cluster(ratings_df, clusters_df, movies_df, cluster_genres_df, top_n=20, min_ratings=4):
+def get_top_movies_for_cluster(ratings_df, clusters_df, movies_df, cluster_genres_df, top_n=20, min_ratings=5):
     """
     Generate top-rated movie recommendations for each cluster, considering ratings and genre preferences.
     
@@ -97,7 +97,7 @@ def get_top_movies_for_cluster(ratings_df, clusters_df, movies_df, cluster_genre
     ratings_with_clusters = pd.merge(ratings_df, clusters_df, on='UserID')
     
     # Step 2: Calculate average ratings and counts per movie per cluster
-    cluster_movie_stats = ratings_with_clusters.groupby(['cluster_id', 'MovieID']).agg(
+    cluster_movie_stats = ratings_with_clusters.groupby(['ClusterID', 'MovieID']).agg(
         avg_rating=('Rating', 'mean'),
         rating_count=('Rating', 'count')
     ).reset_index()
@@ -106,18 +106,19 @@ def get_top_movies_for_cluster(ratings_df, clusters_df, movies_df, cluster_genre
     cluster_movie_stats = cluster_movie_stats[cluster_movie_stats['rating_count'] >= min_ratings]
     
     # Step 4: Prepare genre data for matching
-    movies_df['genres_list'] = movies_df['genres'].str.split('|')
-    cluster_genres_df['top_genres_list'] = cluster_genres_df['top_genres'].str.split('|')
+    movies_df['genres_list'] = movies_df['Genres'].str.split('|')
+    cluster_genres_df['top_genres_list'] = cluster_genres_df['Genres Ranked by Score'].str.split(',')
     
     # Merge movie genres into cluster_movie_stats
     cluster_movie_stats = pd.merge(cluster_movie_stats, movies_df[['MovieID', 'genres_list']], on='MovieID')
     
     # Step 5: Check genre overlap and adjust scores
     def has_top_genre(row, cluster_genres):
-        cluster_top_genres = cluster_genres.get(row['cluster_id'], [])
+        cluster_top_genres = cluster_genres.get(row['ClusterID'], [])
         return any(genre in cluster_top_genres for genre in row['genres_list'])
     
-    cluster_genres_dict = cluster_genres_df.set_index('cluster_id')['top_genres_list'].to_dict()
+    cluster_genres_dict = cluster_genres_df.set_index('ClusterID')['top_genres_list'].to_dict()
+    cluster_genres_dict.pop(-1, None)  # Remove the entry for ClusterID -1
     cluster_movie_stats['matches_top_genre'] = cluster_movie_stats.apply(
         lambda row: has_top_genre(row, cluster_genres_dict), axis=1
     )
@@ -128,12 +129,16 @@ def get_top_movies_for_cluster(ratings_df, clusters_df, movies_df, cluster_genre
     )
     
     # Step 6: Rank and select top movies per cluster
-    top_movies = cluster_movie_stats.groupby('cluster_id').apply(
+    top_movies = cluster_movie_stats.groupby('ClusterID').apply(
         lambda x: x.nlargest(top_n, 'adjusted_score')[['MovieID', 'adjusted_score']]
     ).reset_index()
     
+    noiseIndexes = top_movies[top_movies['ClusterID'] == -1].index
+    top_movies = top_movies.drop(noiseIndexes).reset_index(drop=True)
+    top_movies['adjusted_score'] = top_movies.adjusted_score.round(3)
+
     # Convert to dictionary format
-    top_movies_dict = top_movies.groupby('cluster_id').apply(
+    top_movies_dict = top_movies.groupby('ClusterID').apply(
         lambda x: list(zip(x['MovieID'], x['adjusted_score']))
     ).to_dict()
     
@@ -163,24 +168,21 @@ def recommend_for_new_user(user_gender, user_age, user_profession, clusters_df, 
     Returns:
     - list: List of recommended movie IDs.
     """
-    # Calculate mismatch and difference columns
-    clusters_df['gender_mismatch'] = (clusters_df['Male/Female'] != user_gender).astype(int)
+
+    # Calculate mismatch
     clusters_df['age_diff'] = abs(clusters_df['Average Age'] - user_age)
-    clusters_df['profession_mismatch'] = (clusters_df['Profession'] != user_profession).astype(int)
     
-    # Calculate distance with gender as the most crucial factor
-    clusters_df['distance'] = (gender_weight * clusters_df['gender_mismatch'] +
-                               clusters_df['age_diff'] +
-                               profession_weight * clusters_df['profession_mismatch'])
+    # Calculate distance
+    clusters_df['distance'] = (clusters_df['age_diff'])
     
     # Find the cluster with the smallest distance
     best_cluster = clusters_df.loc[clusters_df['distance'].idxmin()]
     best_cluster_id = best_cluster['ClusterID']
     
     # Get the top movies for the best cluster
-    recommendations = [movie_id for movie_id, score in top_movies_dict[best_cluster_id]]
+    preliminary_recommendations = [movie_id for movie_id, score in top_movies_dict[best_cluster_id]]
     
-    return recommendations
+    return preliminary_recommendations
 
 ###########################################################################
 
