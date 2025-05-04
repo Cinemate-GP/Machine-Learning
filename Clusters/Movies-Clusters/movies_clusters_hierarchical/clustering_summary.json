@@ -1,0 +1,14 @@
+{
+    "total_movies": 45335,
+    "num_clusters": 130,
+    "movies_in_clusters": 45335,
+    "percentage_in_clusters": 100.0,
+    "avg_cluster_size": 348.7307692307692,
+    "min_cluster_size": 40,
+    "max_cluster_size": 1472,
+    "median_cluster_size": 248.5,
+    "silhouette_score": 0.19516201317310333,
+    "davies_bouldin_index": 1.5826275694266143,
+    "calinski_harabasz_score": 235.1815643310547,
+    "subsample_size": 10000
+}

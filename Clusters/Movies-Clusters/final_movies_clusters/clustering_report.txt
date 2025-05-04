@@ -1,0 +1,59 @@
+========== Movie Clustering Analysis Report ==========
+--- Data Summary ---
+Total number of movies: 45335
+Clustering performed on: 64-dimensional latent space from hybrid features
+--- Clustering Summary ---
+Number of clusters: 109
+Movies assigned to clusters: 45020 (99.31%)
+Average cluster size: 413.0
+Minimum cluster size: 60
+Maximum cluster size: 6667
+Median cluster size: 148.0
+--- Top 5 Largest Clusters ---
+Cluster 104: 6667 movies
+Cluster 103: 5146 movies
+Cluster 101: 3965 movies
+Cluster 88: 2065 movies
+Cluster 65: 2007 movies
+
+--- Top 5 Smallest Clusters ---
+Cluster 4: 60 movies
+Cluster 75: 64 movies
+Cluster 83: 65 movies
+Cluster 92: 65 movies
+Cluster 80: 67 movies
+
+--- Sample Movies from 3 Random Clusters ---
+
+Cluster 28 (size: 98):
+ - Asteroid City
+ - Frequencies
+ - Perfect Sense
+ - The Little Girl Who Conquered Time
+ - The Invisible Woman
+ - It's All About Love
+ - Zanox
+
+Cluster 66 (size: 477):
+ - Beneath the Surface
+ - ManFish
+ - Hard Rock Zombies
+ - Ed and His Dead Mother
+ - Elvira's Haunted Hills
+ - Hello Ghost
+ - The Toxic Avenger Part II
+
+Cluster 88 (size: 2065):
+ - The Butcher's Wife
+ - The Cooler
+ - Love Before Breakfast
+ - Amira & Sam
+ - Billy's Hollywood Screen Kiss
+ - The Giant Mechanical Man
+ - Fuck My Family
+
+--- Clustering Quality Metrics ---
+Silhouette Score (subsample)  : 0.2678
+Davies–Bouldin Index          : 1.4483
+Calinski–Harabasz Score       : 224.75
+==================================================

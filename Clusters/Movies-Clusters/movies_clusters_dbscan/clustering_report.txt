@@ -1,0 +1,60 @@
+========== Movie Clustering Analysis Report (DBSCAN) ==========
+--- Data Summary ---
+Total number of movies: 45335
+Clustering performed on: 64-dimensional latent space from hybrid features
+--- Clustering Summary ---
+Number of clusters: 43
+Movies assigned to clusters: 23681 (52.24%)
+Noise points: 21654 (47.76%)
+Average cluster size: 550.7
+Minimum cluster size: 34
+Maximum cluster size: 5439
+Median cluster size: 136.0
+--- Top 5 Largest Clusters ---
+Cluster 3: 5439 movies
+Cluster 1: 4099 movies
+Cluster 9: 3323 movies
+Cluster 10: 1394 movies
+Cluster 0: 1380 movies
+
+--- Top 5 Smallest Clusters ---
+Cluster 18: 34 movies
+Cluster 41: 40 movies
+Cluster 40: 50 movies
+Cluster 42: 52 movies
+Cluster 38: 54 movies
+
+--- Sample Movies from 3 Random Clusters ---
+
+Cluster 40 (size: 50):
+ - Almost Love
+ - 100 Days with Mr. Arrogant
+ - Architecture 101
+ - Innocent Steps
+ - If You Are the One
+ - The Great Magician
+ - A Midsummer's Hawaiian Dream
+
+Cluster 29 (size: 763):
+ - Quicksand
+ - Itsy Bitsy
+ - 30 Days of Night
+ - Children of the Corn
+ - The Body Tree
+ - Bad Dreams
+ - Lost Souls
+
+Cluster 1 (size: 4099):
+ - The Cheerleaders
+ - Joni's Promise
+ - Cupcakes
+ - Pecker
+ - Dim Sum: A Little Bit of Heart
+ - Seriously Single
+ - Reality
+
+--- Clustering Quality Metrics (Clustered Points Only) ---
+Silhouette Score (subsample)  : 0.2440
+Davies–Bouldin Index          : 0.9188
+Calinski–Harabasz Score       : 580.81
+==================================================
