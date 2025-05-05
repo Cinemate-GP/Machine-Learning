@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
+import faiss
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.preprocessing import MultiLabelBinarizer
 
 ###########################################################################
 
@@ -152,31 +154,61 @@ def get_top_movies_for_cluster(ratings_df, clusters_df, movies_df, cluster_genre
 
 ###########################################################################
 
-def recommend_for_new_user(user_gender, user_age, user_profession, clusters_df, top_movies_dict, gender_weight=100, profession_weight=10):
+def parse_distribution(dist_str):
+    """Parse distribution string into proportions (e.g., 'M:168, F:72' -> {'M': 0.7, 'F': 0.3})."""
+    counts = {k.strip(): int(v) for k, v in (pair.split(':') for pair in dist_str.split(','))}
+    total = sum(counts.values())
+    return {k: v / total for k, v in counts.items()}
+
+def recommend_for_new_user(user_gender, user_age, user_profession, clusters_df, top_movies_dict):
     """
-    Recommend movies to a new user based on their demographic information by mapping them to the most appropriate cluster.
-    
+    Assign a new user to a cluster and recommend movies using bias-based scoring.
+
     Parameters:
-    - user_gender (str): Gender of the new user ('Male' or 'Female').
-    - user_age (int): Age of the new user.
-    - user_profession (str): Profession of the new user.
-    - clusters_df (pd.DataFrame): DataFrame with columns 'ClusterID', 'Male/Female', 'Average Age', 'Profession'.
-    - top_movies_dict (dict): Dictionary mapping 'ClusterID' to a list of top movies [(movie_id, score), ...].
-    - gender_weight (int): Weight for gender mismatch in distance calculation (default=100).
-    - profession_weight (int): Weight for profession mismatch in distance calculation (default=10).
-    
+    - user_gender (str): 'Male' or 'Female'.
+    - user_age (int): User's age.
+    - user_profession (str): User's profession.
+    - clusters_df (pd.DataFrame): Cluster data with distribution columns.
+    - top_movies_dict (dict): {cluster_id: [(movie_id, score), ...]}.
+
     Returns:
-    - list: List of recommended movie IDs.
+    - list: Recommended movie IDs.
     """
 
-    # Calculate mismatch
-    clusters_df['age_diff'] = abs(clusters_df['Average Age'] - user_age)
+    # Define age groups
+    age_groups = {
+        '18-25': (18, 25),
+        '26-35': (26, 35),
+        '36-45': (36, 45),
+        '46-55': (46, 55),
+        '56+': (56, 100)
+    }
+
+    #user_age_group = next(group for group, (low, high) in age_groups.items() if low <= user_age <= high)
+
+    # Parse distributions into proportions
+    clusters_df['gender_props'] = clusters_df['Male-Female Distribution'].apply(parse_distribution)
+    #clusters_df['age_props'] = clusters_df['Age Group Distribution'].apply(parse_distribution)
+    clusters_df['occupation_props'] = clusters_df['Occupation Ranking by Number'].apply(parse_distribution)
+
+    # Calculate biases
+    clusters_df['gender_bias'] = clusters_df['gender_props'].apply(
+        lambda props: props.get(user_gender[0], 0) - 0.5  # M or F, baseline 50%
+    )
+    #clusters_df['age_proportion'] = clusters_df['age_props'].apply(
+    #    lambda props: props.get(user_age_group, 0)
+    #)
+    clusters_df['profession_bias'] = clusters_df['occupation_props'].apply(
+        lambda props: props.get(user_profession, 0) - 0.2  # Baseline 20% assuming 20 professions
+    )
+
+    # Compute final score: Adjust age proportion with gender bias, add weighted profession bias
+    profession_weight = 0.2  # Profession has less influence
+    clusters_df['score'] = ((1 + clusters_df['gender_bias'])) + \
+                            (profession_weight * clusters_df['profession_bias'])
     
-    # Calculate distance
-    clusters_df['distance'] = (clusters_df['age_diff'])
-    
-    # Find the cluster with the smallest distance
-    best_cluster = clusters_df.loc[clusters_df['distance'].idxmin()]
+    # Select cluster with highest score
+    best_cluster = clusters_df.loc[clusters_df['score'].idxmax()]
     best_cluster_id = best_cluster['ClusterID']
     
     # Get the top movies for the best cluster
@@ -189,3 +221,86 @@ def recommend_for_new_user(user_gender, user_age, user_profession, clusters_df, 
 # Hybrid Recommender System Funcion #4
 
 ###########################################################################
+
+# Load movie data
+movies_df = pd.read_csv('ml_data/movies_1m.csv')
+
+# Load cluster assignments (assumed to exist from prior clustering)
+clusters_df = pd.read_csv('ml_data/movie_clusters.csv')  # Columns: MovieID, cluster
+
+# Merge data
+movie_data = pd.merge(movies_df, clusters_df, on='MovieID')
+
+# Extract and binarize genres
+mlb = MultiLabelBinarizer()
+movie_data['genres_list'] = movie_data['Genres'].str.split('|')
+genre_vectors = mlb.fit_transform(movie_data['genres_list'])
+movie_data = pd.concat([movie_data, pd.DataFrame(genre_vectors, columns=mlb.classes_)], axis=1)
+
+# Compute cluster centroids
+cluster_centroids = movie_data.groupby('cluster')[mlb.classes_].mean()
+
+# Prepare FAISS index for ANN search
+# Normalize vectors for cosine similarity (FAISS uses inner product)
+genre_vectors = genre_vectors.astype(np.float32)
+norms = np.linalg.norm(genre_vectors, axis=1, keepdims=True)
+norms[norms == 0] = 1  # Avoid division by zero
+normalized_vectors = genre_vectors / norms
+index = faiss.IndexFlatIP(normalized_vectors.shape[1])  # Inner product index
+index.add(normalized_vectors)  # Add vectors to index
+
+def assign_new_movie_to_cluster(new_movie_genres):
+    """
+    Assign a new movie to a cluster based on genre similarity to centroids.
+    
+    Args:
+        new_movie_genres (list): List of genres (e.g., ['Action', 'Comedy'])
+    
+    Returns:
+        int: Assigned cluster ID
+    """
+    # Create genre vector for the new movie
+    new_movie_vec = mlb.transform([new_movie_genres])[0].reshape(1, -1)
+    
+    # Normalize for cosine similarity
+    norm = np.linalg.norm(new_movie_vec)
+    if norm == 0:
+        norm = 1
+    new_movie_vec_normalized = new_movie_vec / norm
+    
+    # Compute similarity to each cluster centroid
+    similarities = np.dot(new_movie_vec_normalized, cluster_centroids.values.T)[0]
+    
+    # Assign to the cluster with the highest similarity
+    assigned_cluster = cluster_centroids.index[np.argmax(similarities)]
+    return assigned_cluster
+
+
+def find_top_similar_movies_with_ann(new_movie_genres, top_n=5):
+    """
+    Find the top N similar movies using FAISS ANN search.
+    
+    Args:
+        new_movie_genres (list): List of genres (e.g., ['Action', 'Comedy'])
+        top_n (int): Number of similar movies to return
+    
+    Returns:
+        list: List of (MovieID, similarity_score) tuples
+    """
+    # Create genre vector for the new movie
+    new_movie_vec = mlb.transform([new_movie_genres])[0].astype(np.float32)
+    
+    # Normalize for cosine similarity
+    norm = np.linalg.norm(new_movie_vec)
+    if norm == 0:
+        norm = 1
+    new_movie_vec_normalized = (new_movie_vec / norm).reshape(1, -1)
+    
+    # Search FAISS index
+    similarities, indices = index.search(new_movie_vec_normalized, top_n)
+    
+    # Retrieve MovieIDs and similarities
+    movie_ids = movie_data['MovieID'].values
+    top_similar = [(movie_ids[i], similarities[0][j]) for j, i in enumerate(indices[0])]
+    
+    return top_similar
